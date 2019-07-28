@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-storage.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-database.js"></script>
+		
+<script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAzcS4ilVLexAcjZq0vMkOoXNBl4t-FnIQ",
+        authDomain: "raghu-5c527.firebaseapp.com",
+        databaseURL: "https://raghu-5c527.firebaseio.com",
+        projectId: "raghu-5c527",
+        storageBucket: "raghu-5c527.appspot.com",
+        messagingSenderId: "434430511453"
+      };
+      firebase.initializeApp(config);
+            var database = firebase.database();
+			var storage = firebase.storage();
+        </script>
+        <style>
+                img {
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                }
+                hr {
+                      clear: both;
+                      visibility: hidden;
+                    }
+                body{
+                    background-color: lightblue;
+                }
+                #btn2,#viewbtn{
+                    border-radius: 12px;
+                }
+
+                #inp{
+                    border-radius: 5px;
+                }
+                
+                </style>
+	</head>
+	<body>
+        <div id="imgs">
+                <img src="C:\Users\Sai Sujith Bezawada\Desktop\ecof.jpg" alt="Trulli" width="500" height="333">
+        </div>
+        <hr>
+        <input type="button" value ="view Images" id="viewbtn" onclick="btn()"  style='width:100px;margin:0 50%;position:relative;left:-50px;' >
+		<br>
+		<div id = "img_holder">
+        </div>
+        <hr>
+        <div data-tip="Image name to be deleted">
+        <input type="text" name="inp"  id="inp"  style='width:100px;margin:0 50%;position:relative;left:-50px;'>
+        </div>
+        <hr>
+        <input type="button" onclick="btn2()" id="btn2" value="delete"  style='width:100px;margin:0 50%;position:relative;left:-50px;'>
+        <div ></div>
+		<script>
+			function btn(){
+				var query = database.ref().child('data/');  
+              // console.log("ASDF");
+				query.once("value").then(function(snapshot){
+				snapshot.forEach(function(childSnapshot){
+					var i = childSnapshot.key;
+                   // console.log(i);
+                    var q= database.ref().child('data/'+i+'/');  
+				         q.once("value").then(function(snapshot){
+				         snapshot.forEach(function(childSnapshot){
+					     var j= childSnapshot.key;
+                         if(j=="image")
+                       {
+					var childData = childSnapshot.val();
+					var url= childData;
+				    document.getElementById('img_holder').innerHTML+=("<br/><b>IMAGE_ID : </b>"+i+"<br/><b>IMAGE : </b><img src = '"+url+"' width='250' height='250'/><br/>");
+                    }
+                    else if(j=="description")
+                    {
+                        var d=childSnapshot.val();
+                        document.getElementById('img_holder').innerHTML+=("<br/><b>ISSUE TYPE : </b>"+d);
+                    }
+                         })
+                         })
+                    })
+			  })
+			}
+
+            function btn2(){
+                var op=document.getElementById("inp").value;
+                console.log(op);
+                var query = database.ref().child('data/');  
+              // console.log("ASDF");
+				query.once("value").then(function(snapshot){
+				snapshot.forEach(function(childSnapshot){
+					var i = childSnapshot.key;
+                    if(i==op){
+                        console.log(i+ " "+ op);
+                        alert("Stay connected while we delete the image");
+                    var q= database.ref().child('data/'+i+'/');  
+				         q.once("value").then(function(snapshot){
+				         snapshot.forEach(function(childSnapshot){
+					     var j= childSnapshot.key;
+                         if(j=="image")
+                       {
+                           alert("Got the image");
+					var childData = childSnapshot.val();
+					var desertRef= childData;
+                   }
+                         })
+                         })
+                         q.remove();
+                         alert("Image successfully deleted");
+                    }
+
+                    })
+			  })
+              //btn();
+                }
+		</script>
+		
+	</body>
+</html>

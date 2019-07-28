@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_upload"
+            android:icon="@drawable/ic_file_upload_black_24dp"
+            android:title="add image" />
+        <item
+            android:id="@+id/nav_phone"
+            android:icon="@drawable/ic_phone_black_24dp"
+            android:title="contact us" />
+        <item
+            android:id="@+id/nav_aboutus"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="Educate me" />
+        <item
+            android:id="@+id/nav_mail"
+            android:icon="@drawable/ic_email_black_24dp"
+            android:title="email pollutant" />
+        <item
+            android:id="@+id/nav_index"
+            android:icon="@drawable/ic_airqi"
+            android:title="air quality index"/>
+        <item
+            android:id="@+id/chatbot"
+            android:icon="@drawable/ic_chat"
+            android:title="talk with us"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share pollutant" />
+            <item
+                android:id="@+id/nav_signout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="Signout" />
+        </menu>
+    </item>
+
+</menu>
